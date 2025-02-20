@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { redirect } from "next/navigation";
 import { ChangeEvent, useState } from "react";
-import { postCreateUser } from "repositories/userRepository";
+import { createUser } from "./actions";
 
 export default function Page() {
   const [email, setEmail] = useState<string>();
@@ -21,7 +21,7 @@ export default function Page() {
 
   const onHandleSubmit = async () => {
     setLoading(true);
-    await postCreateUser({ email, name, password });
+    await createUser({ email, password, name });
     setTimeout(() => {
       setLoading(false);
       redirect("/sign-in");
