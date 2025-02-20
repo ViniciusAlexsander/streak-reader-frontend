@@ -9,17 +9,18 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-import { ILoginResponse } from "models/login";
 import { ChangeEvent, useState } from "react";
-import { postLogin } from "repositories/loginRepository";
 import { login } from "./actions";
 
 export default function SignIn() {
   const [email, setEmail] = useState<string>();
   const [password, setPassword] = useState<string>();
+  const [loading, setLoading] = useState<boolean>();
 
   const onHandleSubmit = async () => {
+    setLoading(true);
     await login({ username: email, password });
+    setLoading(false);
   };
 
   const onChangeEmail = (event: ChangeEvent<HTMLInputElement>) => {
@@ -32,7 +33,7 @@ export default function SignIn() {
 
   return (
     <Center w="100%" h="full">
-      <VStack gap={10}>
+      <VStack gap={8}>
         <Text>Login</Text>
         <Field.Root>
           <Field.Label>Email</Field.Label>
@@ -45,7 +46,7 @@ export default function SignIn() {
           <Field.Label>Senha</Field.Label>
           <Input type="password" onChange={onChangePassword} />
         </Field.Root>
-        <Button w="full" onClick={onHandleSubmit}>
+        <Button w="full" loading={loading} onClick={onHandleSubmit}>
           Fazer login
         </Button>
         <Text>
