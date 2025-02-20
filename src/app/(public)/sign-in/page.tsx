@@ -12,13 +12,14 @@ import {
 import { ILoginResponse } from "models/login";
 import { ChangeEvent, useState } from "react";
 import { postLogin } from "repositories/loginRepository";
+import { login } from "./actions";
 
 export default function SignIn() {
   const [email, setEmail] = useState<string>();
   const [password, setPassword] = useState<string>();
 
   const onHandleSubmit = async () => {
-    await postLogin({ username: email, password });
+    await login({ username: email, password });
   };
 
   const onChangeEmail = (event: ChangeEvent<HTMLInputElement>) => {
