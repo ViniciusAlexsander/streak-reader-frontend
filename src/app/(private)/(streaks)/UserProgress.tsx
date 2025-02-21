@@ -4,10 +4,10 @@
 import { GoalsBox } from "@/components/goalsBox";
 import { getRandomQuote } from "@/shared/quotesUtils";
 import { Box, Stack, Text, VStack } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
-import { Timeline } from "./timeline";
-import { IUserProfileResponse } from "models/user";
 import { IUserStreaks } from "models/streaks";
+import { IUserProfileResponse } from "models/user";
+import { useEffect, useState } from "react";
+import { ActivityCalendar } from "react-activity-calendar";
 
 export default function UserProgress({
   userData,
@@ -26,6 +26,13 @@ export default function UserProgress({
 
     return () => clearInterval(interval);
   }, []);
+
+  const activityDates = [
+    "2024-01-01", // Activity on January 1st
+    "2024-01-03", // Activity on January 3rd
+    "2024-01-05", // Activity on January 5th
+    // more activity dates...
+  ];
 
   return (
     <VStack gap={"12"}>
@@ -58,7 +65,18 @@ export default function UserProgress({
           quantity={userData.userStreaks.readPostHistory.length}
         />
       </Stack>
-      <Timeline userStreaks={userData.userStreaks} />
+      <ActivityCalendar
+        data={userData.userStreaks.readPostHistory.map((post) => {
+          return {
+            date: new Date(post.createdAt).toISOString().split("T")[0],
+            count: 1,
+            level: 1,
+          };
+        })}
+        maxLevel={1}
+        showWeekdayLabels
+        hideTotalCount
+      />
     </VStack>
   );
 }
