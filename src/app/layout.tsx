@@ -8,7 +8,13 @@ export default function RootLayout(props: { children: React.ReactNode }) {
     <html suppressHydrationWarning>
       <body>
         <Provider>
-          <Box py={6} px={6} h="100vh" maxWidth="42rem" mx="auto">
+          <Box
+            px={6}
+            paddingTop={6}
+            paddingBottom={12}
+            maxWidth="60rem"
+            mx="auto"
+          >
             {children}
           </Box>
         </Provider>
