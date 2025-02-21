@@ -1,4 +1,3 @@
-// app/dashboard/UserProgress.tsx
 "use client";
 
 import { GoalsBox } from "@/components/goalsBox";
@@ -26,13 +25,6 @@ export function UserProgress({
 
     return () => clearInterval(interval);
   }, []);
-
-  const activityDates = [
-    "2024-01-01", // Activity on January 1st
-    "2024-01-03", // Activity on January 3rd
-    "2024-01-05", // Activity on January 5th
-    // more activity dates...
-  ];
 
   return (
     <VStack gap={"12"}>
