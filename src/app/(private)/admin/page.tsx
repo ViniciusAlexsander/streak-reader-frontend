@@ -1,6 +1,6 @@
 "use client";
 import { Button, Center, Text, VStack } from "@chakra-ui/react";
-import { logout } from "./actions";
+import { logout } from "../actions";
 
 export default function Page() {
   return (

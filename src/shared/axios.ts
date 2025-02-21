@@ -7,8 +7,8 @@ const axiosInstance = axios.create({
 });
 
 axiosInstance.interceptors.request.use(async function (config) {
-  // const accessToken = await getAccessToken();
-  // config.headers.Authorization = `Bearer ${accessToken}`;
+  const accessToken = await getAccessToken();
+  config.headers.Authorization = `Bearer ${accessToken}`;
   return config;
 });
 

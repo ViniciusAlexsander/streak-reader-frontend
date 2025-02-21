@@ -1,7 +1,7 @@
-import { parseCookies } from "nookies";
+"use server";
+
+import { cookies } from "next/headers";
 
 export const getAccessToken = async () => {
-  const cookies = parseCookies();
-
-  return cookies;
+  return (await cookies()).get("access_token")?.value || null;
 };
