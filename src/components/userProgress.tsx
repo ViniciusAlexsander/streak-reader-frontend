@@ -107,7 +107,7 @@ const ReadTooltip = (block: BlockElement, activity: Activity) => {
   if (activity.count > 0) {
     content = `Leitura do dia ${formatActivityDate}`;
   } else {
-    content = `Nenhum leitura no dia ${formatActivityDate}`;
+    content = `Nenhuma leitura no dia ${formatActivityDate}`;
   }
   return (
     <Tooltip showArrow content={content}>
