@@ -37,4 +37,8 @@ export const calendarLabels = {
   ],
   days: ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"],
   totalCount: "{{count}} contribuições no total",
+  legend: {
+    less: "Sem leitura",
+    more: "Com leitura",
+  },
 };
