@@ -9,7 +9,7 @@ import { IUserProfileResponse } from "models/user";
 import { useEffect, useState } from "react";
 import { ActivityCalendar } from "react-activity-calendar";
 
-export default function UserProgress({
+export function UserProgress({
   userData,
 }: {
   userData: {

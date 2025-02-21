@@ -1,4 +1,4 @@
-import UserProgress from "./userProgress";
+import { UserProgress } from "./userProgress";
 import { getUserData } from "./actions";
 
 export default async function Dashboard() {
