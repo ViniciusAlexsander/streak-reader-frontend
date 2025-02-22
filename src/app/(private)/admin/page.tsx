@@ -58,9 +58,11 @@ export default function Page() {
 
   return (
     <Stack width="full" gap="5" alignItems="center">
-      <Text fontSize={{ base: "3xl", md: "4xl" }} fontWeight="bold">
-        Ranking de leitores
-      </Text>
+      <Box>
+        <Text fontSize={{ base: "3xl", md: "4xl" }} fontWeight="bold">
+          Ranking de leitores
+        </Text>
+      </Box>
       {loading && (
         <Flex alignItems="center" justifyContent="center" h="100%">
           <Spinner size={{ base: "lg" }} />
@@ -94,6 +96,11 @@ export default function Page() {
                 <Text fontWeight="bold">Streak atual:</Text>
                 <Text>{user.actualStreak}</Text>
               </Flex>
+              <Flex gap={2}>
+                <Text fontWeight="bold">Total de leituras:</Text>
+                <Text>{user._count.readPosts}</Text>
+              </Flex>
+
               <Flex gap={2}>
                 <Text fontWeight="bold">Record de streak:</Text>
                 <Text>{user.recordStreak}</Text>

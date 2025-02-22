@@ -29,6 +29,9 @@ export interface User {
   actualStreak: number;
   recordStreak: number;
   updatedAt: string;
+  _count: {
+    readPosts: number;
+  };
 }
 
 export interface Pagination {
