@@ -84,9 +84,14 @@ export const PaginationEllipsis = React.forwardRef<
   );
 });
 
+interface PaginationItemProps extends ChakraPagination.ItemProps {
+  value: number;
+  type: string;
+}
+
 export const PaginationItem = React.forwardRef<
   HTMLButtonElement,
-  ChakraPagination.ItemProps
+  PaginationItemProps
 >(function PaginationItem(props, ref) {
   const { page } = usePaginationContext();
   const { size, variantMap, getHref } = useRootProps();
