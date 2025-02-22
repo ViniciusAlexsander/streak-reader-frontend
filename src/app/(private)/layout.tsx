@@ -1,9 +1,8 @@
 // app/layout.tsx
-import { Box, Flex, Button } from "@chakra-ui/react";
-import { AuthProvider } from "context/AuthContext";
-import { adminPage, isAdminFunction, logout } from "./actions";
-import { redirect } from "next/navigation";
 import { AdminNavigation } from "@/components/adminNavigation";
+import { Box, Button, Flex } from "@chakra-ui/react";
+import { AuthProvider } from "context/AuthContext";
+import { isAdminFunction, logout } from "./actions";
 
 export default async function RootLayout(props: { children: React.ReactNode }) {
   const { children } = props;
