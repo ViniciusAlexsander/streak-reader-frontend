@@ -1,6 +1,7 @@
 import { UserSession } from "context/AuthContext";
 import jwt from "jsonwebtoken";
 import { User } from "models/streaks";
+import { cookies } from "next/headers";
 import { MiddlewareConfig, NextRequest, NextResponse } from "next/server";
 
 const publicRoutes = [
@@ -23,7 +24,7 @@ const adminRoutes = [
 
 const REDIRECT_NOT_AUTHENTICATED_ROUTE = "/sign-in";
 
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname;
   const publicRoute = publicRoutes.find((route) => route.path === path);
   const adminRoute = adminRoutes.find((route) => route.path === path);
@@ -61,8 +62,14 @@ export function middleware(request: NextRequest) {
   }
 
   if (authToken && !publicRoute) {
-    //Ver se o jwt expirou
-    // se expirou, remover o cookie e redirect para o login
+    const currentTime = Math.floor(Date.now() / 1000);
+    if (decodedUser.exp < currentTime) {
+      (await cookies()).delete("access_token");
+      const redirectUrl = request.nextUrl.clone();
+      redirectUrl.pathname = REDIRECT_NOT_AUTHENTICATED_ROUTE;
+
+      return NextResponse.redirect(redirectUrl);
+    }
 
     return NextResponse.next();
   }
