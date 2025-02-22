@@ -18,3 +18,24 @@ export interface IReadPost {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface IRankingStreaks {
+  users: User[];
+  pagination: Pagination;
+}
+
+export interface User {
+  email: string;
+  actualStreak: number;
+  recordStreak: number;
+  updatedAt: string;
+}
+
+export interface Pagination {
+  totalCount: number;
+  totalPages: number;
+  currentPage: number;
+  pageSize: number;
+  hasNextPage: boolean;
+  hasPrevPage: boolean;
+}

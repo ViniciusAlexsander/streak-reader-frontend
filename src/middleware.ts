@@ -1,3 +1,6 @@
+import { UserSession } from "context/AuthContext";
+import jwt from "jsonwebtoken";
+import { User } from "models/streaks";
 import { MiddlewareConfig, NextRequest, NextResponse } from "next/server";
 
 const publicRoutes = [
@@ -11,12 +14,22 @@ const publicRoutes = [
   },
 ] as const;
 
+const adminRoutes = [
+  {
+    path: "/admin",
+    whenAuthenticated: "redirect",
+  },
+] as const;
+
 const REDIRECT_NOT_AUTHENTICATED_ROUTE = "/sign-in";
 
 export function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname;
   const publicRoute = publicRoutes.find((route) => route.path === path);
+  const adminRoute = adminRoutes.find((route) => route.path === path);
   const authToken = request.cookies.get("access_token");
+  let decodedUser;
+  if (authToken) decodedUser = jwt.decode(authToken.value) as UserSession;
 
   if (!authToken && publicRoute) {
     return NextResponse.next();
@@ -34,6 +47,13 @@ export function middleware(request: NextRequest) {
     publicRoute &&
     publicRoute.whenAuthenticated === "redirect"
   ) {
+    const redirectUrl = request.nextUrl.clone();
+    redirectUrl.pathname = "/";
+
+    return NextResponse.redirect(redirectUrl);
+  }
+
+  if (authToken && adminRoute && decodedUser.role !== "admin") {
     const redirectUrl = request.nextUrl.clone();
     redirectUrl.pathname = "/";
 

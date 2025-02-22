@@ -1,4 +1,4 @@
-import { IUserStreaks } from "models/streaks";
+import { IRankingStreaks, IUserStreaks } from "models/streaks";
 import axiosInstance from "shared/axios";
 
 const getUserStreaks = async (email: string): Promise<IUserStreaks> => {
@@ -7,4 +7,18 @@ const getUserStreaks = async (email: string): Promise<IUserStreaks> => {
   return response.data;
 };
 
-export { getUserStreaks };
+const getRankingStreaks = async (
+  page: number,
+  pageSize: number
+): Promise<IRankingStreaks> => {
+  const response = await axiosInstance.get<IRankingStreaks>("/ranking", {
+    params: {
+      pageSize,
+      page,
+    },
+  });
+
+  return response.data;
+};
+
+export { getUserStreaks, getRankingStreaks };

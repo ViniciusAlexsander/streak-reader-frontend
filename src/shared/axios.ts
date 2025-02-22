@@ -2,7 +2,7 @@ import axios from "axios";
 import { getAccessToken } from "./tokenUtils";
 
 const axiosInstance = axios.create({
-  baseURL: process.env.BACKEND_URL,
+  baseURL: process.env.NEXT_PUBLIC_BACKEND_URL,
   withCredentials: true,
 });
 
