@@ -1,6 +1,5 @@
 import { UserSession } from "context/AuthContext";
 import jwt from "jsonwebtoken";
-import { User } from "models/streaks";
 import { cookies } from "next/headers";
 import { MiddlewareConfig, NextRequest, NextResponse } from "next/server";
 
