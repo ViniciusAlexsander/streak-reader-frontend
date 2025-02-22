@@ -5,7 +5,7 @@ import {
   PaginationPrevTrigger,
   PaginationRoot,
 } from "@/components/ui/pagination";
-import { HStack, Stack, Table, Text } from "@chakra-ui/react";
+import { Box, Flex, HStack, Stack, Table, Text } from "@chakra-ui/react";
 import { useAuth } from "context/AuthContext";
 import { Pagination, User } from "models/streaks";
 import { GetServerSideProps } from "next";
@@ -42,28 +42,51 @@ export default function Page() {
   }, [currentPage]);
 
   return (
-    <Stack width="full" gap="5">
+    <Stack width="full" gap="5" alignItems="center">
       <Text fontSize={{ base: "3xl", md: "4xl" }} fontWeight="bold">
         Ranking de leitores
       </Text>
-      <Table.Root size="sm" variant="outline" striped>
-        <Table.Header>
-          <Table.Row>
-            <Table.ColumnHeader>E-mail do usuario</Table.ColumnHeader>
-            <Table.ColumnHeader>Streak atual</Table.ColumnHeader>
-            <Table.ColumnHeader>Streak recorde</Table.ColumnHeader>
-          </Table.Row>
-        </Table.Header>
-        <Table.Body>
-          {users.map((user) => (
-            <Table.Row key={user.email}>
-              <Table.Cell>{user.email}</Table.Cell>
-              <Table.Cell>{user.actualStreak}</Table.Cell>
-              <Table.Cell>{user.recordStreak}</Table.Cell>
-            </Table.Row>
-          ))}
-        </Table.Body>
-      </Table.Root>
+      {users.map((user, index) => (
+        <Flex
+          gap={{ base: 5, md: 10 }}
+          alignItems="center"
+          justifyContent="center"
+          width="full"
+        >
+          <Text
+            fontSize={{ base: "2xl", md: "4xl" }}
+            width="15%"
+            textAlign="center"
+          >
+            {index + 1 * pagination.currentPage}º
+          </Text>
+          <Box
+            key={user.email}
+            borderWidth="1px"
+            borderColor="MenuText"
+            borderRadius="md"
+            padding={{ base: 2, md: 5 }}
+            width="85%"
+            maxWidth={{ base: "60", md: "96" }}
+          >
+            <Flex gap={2}>
+              <Text fontWeight="bold">Streak atual:</Text>
+              <Text>{user.actualStreak}</Text>
+            </Flex>
+            <Flex gap={2}>
+              <Text fontWeight="bold">Record de streak:</Text>
+              <Text>{user.recordStreak}</Text>
+            </Flex>
+            <Flex
+              gap={{ base: 0, md: 2 }}
+              flexDirection={{ base: "column", md: "row" }}
+            >
+              <Text fontWeight="bold">Usuário:</Text>
+              <Text>{user.email}</Text>
+            </Flex>
+          </Box>
+        </Flex>
+      ))}
 
       <PaginationRoot
         count={pagination.totalCount}
