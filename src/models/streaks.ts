@@ -1,5 +1,9 @@
 export interface IUserStreaks {
-  dailyStreak: number;
+  goals: {
+    actualStreak: number;
+    recordStreak: number;
+    totalReadPosts: number;
+  };
   readPostHistory: IReadPost[];
 }
 

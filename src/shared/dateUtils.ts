@@ -1,7 +1,7 @@
 export const getAllDaysOfYear = (year: number) => {
   const dates = [];
-  const startDate = new Date(`${year}-01-01`);
-  const endDate = new Date(`${year}-12-31`);
+  const startDate = new Date(`${year}-01-01T00:00:00Z`);
+  const endDate = new Date(`${year}-12-31T23:59:59Z`);
 
   let currentDate = startDate;
   while (currentDate <= endDate) {
@@ -17,7 +17,15 @@ export const getAllDaysOfYear = (year: number) => {
 };
 
 export const formatDate = (dateStr: string): string => {
-  return new Date(dateStr).toLocaleDateString("pt-BR");
+  const date = new Date(dateStr);
+
+  const day = date.getUTCDate();
+  const month = date.getUTCMonth() + 1;
+  const year = date.getUTCFullYear();
+
+  return `${day.toString().padStart(2, "0")}/${month
+    .toString()
+    .padStart(2, "0")}/${year}`;
 };
 
 export const calendarLabels = {

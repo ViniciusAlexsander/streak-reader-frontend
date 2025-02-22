@@ -79,11 +79,15 @@ export function UserProgress({
       >
         <GoalsBox
           goalText="Dias seguidos"
-          quantity={userData.userStreaks.dailyStreak}
+          quantity={userData.userStreaks.goals.actualStreak}
+        />
+        <GoalsBox
+          goalText="Record de streaks"
+          quantity={userData.userStreaks.goals.recordStreak}
         />
         <GoalsBox
           goalText="Total de leituras"
-          quantity={userData.userStreaks.readPostHistory.length}
+          quantity={userData.userStreaks.goals.totalReadPosts}
         />
       </Stack>
       <Text fontSize={{ base: "xl", md: "xl" }} textAlign="center">
