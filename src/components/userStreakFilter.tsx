@@ -47,14 +47,14 @@ export default function UserStreakFilter({
       <Stack direction="row" gap={4}>
         <Select
           options={months}
-          placeholder="Select a month"
+          placeholder="Selecione um mês"
           onChange={handleMonthChange}
           value={selectedMonth}
           isClearable
         />
         <Select
           options={years}
-          placeholder="Select a year"
+          placeholder="Selecione um ano"
           onChange={handleYearChange}
           value={selectedYear}
           isClearable
