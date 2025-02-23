@@ -7,14 +7,23 @@ const getUserStreaks = async (email: string): Promise<IUserStreaks> => {
   return response.data;
 };
 
-const getRankingStreaks = async (
-  page: number,
-  pageSize: number
-): Promise<IRankingStreaks> => {
+const getRankingStreaks = async ({
+  page,
+  pageSize,
+  month,
+  year,
+}: {
+  page: number;
+  pageSize: number;
+  year?: number;
+  month?: number;
+}): Promise<IRankingStreaks> => {
   const response = await axiosInstance.get<IRankingStreaks>("/ranking", {
     params: {
       pageSize,
       page,
+      year,
+      month,
     },
   });
 

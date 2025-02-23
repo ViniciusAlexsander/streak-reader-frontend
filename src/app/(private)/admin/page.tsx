@@ -5,18 +5,11 @@ import {
   PaginationPrevTrigger,
   PaginationRoot,
 } from "@/components/ui/pagination";
-import {
-  Box,
-  Flex,
-  HStack,
-  Spinner,
-  Stack,
-  Table,
-  Text,
-} from "@chakra-ui/react";
-import { useAuth } from "context/AuthContext";
+import UserStreakFilter, {
+  ISelectedOption,
+} from "@/components/userStreakFilter";
+import { Box, Flex, HStack, Spinner, Stack, Text } from "@chakra-ui/react";
 import { Pagination, User } from "models/streaks";
-import { GetServerSideProps } from "next";
 import { useEffect, useState } from "react";
 import { getRankingStreaks } from "repositories/streaksRepository";
 
@@ -31,14 +24,28 @@ export default function Page() {
     totalCount: 0,
     totalPages: 0,
   });
+  const dateNow = new Date();
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [loading, setLoading] = useState<boolean>();
+  const [selectedMonth, setSelectedMonth] = useState<ISelectedOption>({
+    value: dateNow.getMonth() + 1,
+    label: dateNow.toLocaleString("default", { month: "long" }),
+  });
+  const [selectedYear, setSelectedYear] = useState<ISelectedOption>({
+    value: dateNow.getFullYear(),
+    label: `${dateNow.getFullYear()}`,
+  });
 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
         setLoading(true);
-        const response = await getRankingStreaks(currentPage, pageSize);
+        const response = await getRankingStreaks({
+          page: currentPage,
+          pageSize,
+          month: selectedMonth.value,
+          year: selectedYear.value,
+        });
 
         setUsers(response.users);
         setPagination(response.pagination);
@@ -50,19 +57,37 @@ export default function Page() {
     };
 
     fetchUsers();
-  }, [currentPage]);
+  }, [currentPage, selectedMonth, selectedYear]);
 
   const userPosition = (index: number) => {
     return (currentPage - 1) * pageSize + index + 1;
   };
 
+  const handleMonthChange = (option: ISelectedOption) => {
+    setSelectedMonth(option);
+    console.log("Selected month:", option);
+  };
+
+  const handleYearChange = (option: ISelectedOption) => {
+    setSelectedYear(option);
+    console.log("Selected year:", option);
+  };
+
   return (
     <Stack width="full" gap="5" alignItems="center">
-      <Box>
+      <Stack width="full" justifyContent="space-evenly">
         <Text fontSize={{ base: "3xl", md: "4xl" }} fontWeight="bold">
           Ranking de leitores
         </Text>
-      </Box>
+        <Box minW="327px" maxW="50%">
+          <UserStreakFilter
+            onChangeMonth={handleMonthChange}
+            selectedMonth={selectedMonth}
+            onChangeYear={handleYearChange}
+            selectedYear={selectedYear}
+          />
+        </Box>
+      </Stack>
       {loading && (
         <Flex alignItems="center" justifyContent="center" h="100%">
           <Spinner size={{ base: "lg" }} />
