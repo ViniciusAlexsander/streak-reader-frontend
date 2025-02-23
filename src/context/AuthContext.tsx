@@ -46,7 +46,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
 
         if (token) {
           const decodedUser = jwt.decode(token.value) as UserSession;
-          console.log({ decodedUser });
           setUser(decodedUser);
         }
       } catch (error) {

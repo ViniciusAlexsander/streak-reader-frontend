@@ -33,12 +33,10 @@ export default function UserStreakFilter({
 }: IUserStreakFilterProps) {
   const handleMonthChange = (option: ISelectedOption) => {
     onChangeMonth(option);
-    console.log("Selected month:", option);
   };
 
   const handleYearChange = (option: ISelectedOption) => {
     onChangeYear(option);
-    console.log("Selected year:", option);
   };
 
   return (

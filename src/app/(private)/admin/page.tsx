@@ -65,12 +65,10 @@ export default function Page() {
 
   const handleMonthChange = (option: ISelectedOption) => {
     setSelectedMonth(option);
-    console.log("Selected month:", option);
   };
 
   const handleYearChange = (option: ISelectedOption) => {
     setSelectedYear(option);
-    console.log("Selected year:", option);
   };
 
   return (
