@@ -11,6 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { redirect } from "next/navigation";
 import { ChangeEvent, useState } from "react";
+import { toast } from "react-toastify";
 import { createUser } from "./actions";
 
 export default function Page() {
@@ -20,12 +21,18 @@ export default function Page() {
   const [loading, setLoading] = useState<boolean>();
 
   const onHandleSubmit = async () => {
-    setLoading(true);
-    await createUser({ email, password, name });
-    setTimeout(() => {
+    try {
+      setLoading(true);
+      await createUser({ email, password, name });
+      setTimeout(() => {
+        setLoading(false);
+        redirect("/sign-in");
+      }, 5000);
+    } catch (error) {
+      toast.error("Error ao fazer cadastro");
+    } finally {
       setLoading(false);
-      redirect("/sign-in");
-    }, 5000);
+    }
   };
 
   const onChangeEmail = (event: ChangeEvent<HTMLInputElement>) => {
@@ -60,7 +67,12 @@ export default function Page() {
           <Input type="password" onChange={onChangePassword} />
         </Field.Root>
         <VStack w="full">
-          <Button w="full" loading={loading} onClick={onHandleSubmit}>
+          <Button
+            w="full"
+            loading={loading}
+            onClick={onHandleSubmit}
+            disabled={!email || !password || !name}
+          >
             Cadastrar
           </Button>
           {loading && (

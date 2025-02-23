@@ -10,6 +10,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { ChangeEvent, useState } from "react";
+import { toast } from "react-toastify";
 import { login } from "./actions";
 
 export default function SignIn() {
@@ -18,9 +19,14 @@ export default function SignIn() {
   const [loading, setLoading] = useState<boolean>();
 
   const onHandleSubmit = async () => {
-    setLoading(true);
-    await login({ username: email, password });
-    setLoading(false);
+    try {
+      setLoading(true);
+      await login({ username: email, password });
+    } catch (error) {
+      toast.error("Error ao fazer login, verifique email e senha");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const onChangeEmail = (event: ChangeEvent<HTMLInputElement>) => {
@@ -46,7 +52,12 @@ export default function SignIn() {
           <Field.Label>Senha</Field.Label>
           <Input type="password" onChange={onChangePassword} />
         </Field.Root>
-        <Button w="full" loading={loading} onClick={onHandleSubmit}>
+        <Button
+          w="full"
+          loading={loading}
+          onClick={onHandleSubmit}
+          disabled={!email || !password}
+        >
           Fazer login
         </Button>
         <Text>

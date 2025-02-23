@@ -1,6 +1,7 @@
 import { Provider } from "@/components/provider";
 import { Box } from "@chakra-ui/react";
-
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 export default function RootLayout(props: { children: React.ReactNode }) {
   const { children } = props;
 
@@ -18,6 +19,14 @@ export default function RootLayout(props: { children: React.ReactNode }) {
             {children}
           </Box>
         </Provider>
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          closeButton={true}
+          rtl={false}
+          theme="dark"
+        />
       </body>
     </html>
   );
