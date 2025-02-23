@@ -23,7 +23,7 @@ export default function SignIn() {
       setLoading(true);
       await login({ username: email, password });
     } catch (error) {
-      toast.error("Error ao fazer login, verifique email e senha");
+      //toast.error("Error ao fazer login, verifique email e senha");
     } finally {
       setLoading(false);
     }
